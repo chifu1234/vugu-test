@@ -1,0 +1,20 @@
+<div class="demo">
+    <div vg-if='c.IsLoading'>Loading...</div>
+    <form>
+        <div class="mb-3">
+            <label for="namespace" class="form-label">Namespace</label>
+            <input @change="c.UpdateNamesapce(event)" id="namespace" type="text" class="form-control"></input>
+        </div>
+    </form>
+    <div vg-if='len(c.List.Items) > 0'>
+        <ol class="list-group list-group-numbered">
+        <li vg-for='key, pod := range c.List.Items' vg-key='key' class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold" vg-content='pod.Name'></div>
+                <p vg-content="pod.Namespace"></p>
+            </li>
+        </ol>
+    </div>
+    <button @click="c.UpdateData(event)" class="btn btn-primary">Refresh</button>
+</div>
+
