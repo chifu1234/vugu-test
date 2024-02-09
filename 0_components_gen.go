@@ -16,128 +16,179 @@ func (c *Root) Build(vgin *vugu.BuildIn) (vgout *vugu.BuildOut) {
 	var vgiterkey interface{}
 	_ = vgiterkey
 	var vgn *vugu.VGNode
-	vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "demo"}}}
+	vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "container-fluid"}}}
 	vgout.Out = append(vgout.Out, vgn)	// root for output
 	{
 		vgparent := vgn
 		_ = vgparent
 		vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
 		vgparent.AppendChild(vgn)
-		if c.IsLoading {
-			vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute(nil)}
-			vgparent.AppendChild(vgn)
-			{
-				vgparent := vgn
-				_ = vgparent
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "Loading..."}
-				vgparent.AppendChild(vgn)
-			}
-		}
-		vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
-		vgparent.AppendChild(vgn)
-		vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "form", Attr: []vugu.VGAttribute(nil)}
+		vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "role"}}}
 		vgparent.AppendChild(vgn)
 		{
 			vgparent := vgn
 			_ = vgparent
 			vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
 			vgparent.AppendChild(vgn)
-			vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "mb-3"}}}
+			vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "id", Val: "sidebar"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary"}}}
+			vgparent.AppendChild(vgn)
+			vgn.SetInnerHTML(vugu.HTML("\n\n        "))
+			vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
+			vgparent.AppendChild(vgn)
+			vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "main", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "col-md-9 ms-sm-auto col-lg-10 px-md-4"}}}
 			vgparent.AppendChild(vgn)
 			{
 				vgparent := vgn
 				_ = vgparent
 				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
 				vgparent.AppendChild(vgn)
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "label", Attr: []vugu.VGAttribute{{Namespace: "", Key: "for", Val: "namespace"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "form-label"}}}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"}}}
 				vgparent.AppendChild(vgn)
-				vgn.SetInnerHTML(vugu.HTML("Namespace"))
+				vgn.SetInnerHTML(vugu.HTML("\n                \x3Ch1 class=\"h1\"\x3EPods\x3C/h1\x3E\n            "))
 				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
 				vgparent.AppendChild(vgn)
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "input", Attr: []vugu.VGAttribute{{Namespace: "", Key: "id", Val: "namespace"}, vugu.VGAttribute{Namespace: "", Key: "type", Val: "text"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "form-control"}}}
+				if c.IsLoading {
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute(nil)}
+					vgparent.AppendChild(vgn)
+					{
+						vgparent := vgn
+						_ = vgparent
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "Loading..."}
+						vgparent.AppendChild(vgn)
+					}
+				}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
 				vgparent.AppendChild(vgn)
-				vgn.DOMEventHandlerSpecList = append(vgn.DOMEventHandlerSpecList, vugu.DOMEventHandlerSpec{
-					EventType:	"change",
-					Func:		func(event vugu.DOMEvent) { c.UpdateNamesapce(event) },
-					// TODO: implement capture, etc. mostly need to decide syntax
-				})
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
-				vgparent.AppendChild(vgn)
-			}
-			vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
-			vgparent.AppendChild(vgn)
-		}
-		vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
-		vgparent.AppendChild(vgn)
-		if len(c.List.Items) > 0 {
-			vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute(nil)}
-			vgparent.AppendChild(vgn)
-			{
-				vgparent := vgn
-				_ = vgparent
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
-				vgparent.AppendChild(vgn)
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "ol", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "list-group list-group-numbered"}}}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "form", Attr: []vugu.VGAttribute(nil)}
 				vgparent.AppendChild(vgn)
 				{
 					vgparent := vgn
 					_ = vgparent
-					vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
 					vgparent.AppendChild(vgn)
-					for key, pod := range c.List.Items {
-						var vgiterkey interface{} = key
-						_ = vgiterkey
-						key := key
-						_ = key
-						pod := pod
-						_ = pod
-						vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "li", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "list-group-item d-flex justify-content-between align-items-start"}}}
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "mb-6"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "form-group\""}}}
+					vgparent.AppendChild(vgn)
+					{
+						vgparent := vgn
+						_ = vgparent
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+						vgparent.AppendChild(vgn)
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "label", Attr: []vugu.VGAttribute{{Namespace: "", Key: "for", Val: "namespace"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "form-label"}}}
+						vgparent.AppendChild(vgn)
+						vgn.SetInnerHTML(vugu.HTML("Namespace"))
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+						vgparent.AppendChild(vgn)
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "input", Attr: []vugu.VGAttribute{{Namespace: "", Key: "list", Val: "list-ns"}, vugu.VGAttribute{Namespace: "", Key: "id", Val: "namespace"}, vugu.VGAttribute{Namespace: "", Key: "type", Val: "text"}, vugu.VGAttribute{Namespace: "", Key: "class", Val: "form-control"}}}
+						vgparent.AppendChild(vgn)
+						vgn.DOMEventHandlerSpecList = append(vgn.DOMEventHandlerSpecList, vugu.DOMEventHandlerSpec{
+							EventType:	"change",
+							Func:		func(event vugu.DOMEvent) { c.UpdateNamesapce(event) },
+							// TODO: implement capture, etc. mostly need to decide syntax
+						})
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+						vgparent.AppendChild(vgn)
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "datalist", Attr: []vugu.VGAttribute{{Namespace: "", Key: "id", Val: "list-ns"}}}
 						vgparent.AppendChild(vgn)
 						{
 							vgparent := vgn
 							_ = vgparent
-							vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
+							vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                        "}
 							vgparent.AppendChild(vgn)
-							vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "ms-2 me-auto"}}}
-							vgparent.AppendChild(vgn)
-							{
-								vgparent := vgn
-								_ = vgparent
-								vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
+							for vgiterkeyt, ns := range c.Namespaces.Items {
+								var vgiterkey interface{} = vgiterkeyt
+								_ = vgiterkey
+								ns := ns
+								_ = ns
+								vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "option", Attr: []vugu.VGAttribute(nil)}
 								vgparent.AppendChild(vgn)
-								vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "fw-bold"}}}
-								vgparent.AppendChild(vgn)
-								vgn.SetInnerHTML(pod.Name)
-								vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
-								vgparent.AppendChild(vgn)
-								vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "p", Attr: []vugu.VGAttribute(nil)}
-								vgparent.AppendChild(vgn)
-								vgn.SetInnerHTML(pod.Namespace)
-								vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
-								vgparent.AppendChild(vgn)
+								vgn.SetInnerHTML(ns.Name)
 							}
+							vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+							vgparent.AppendChild(vgn)
 						}
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
+						vgparent.AppendChild(vgn)
 					}
-					vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
 					vgparent.AppendChild(vgn)
 				}
-				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
+				vgparent.AppendChild(vgn)
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "button", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "btn btn-primary"}}}
+				vgparent.AppendChild(vgn)
+				vgn.DOMEventHandlerSpecList = append(vgn.DOMEventHandlerSpecList, vugu.DOMEventHandlerSpec{
+					EventType:	"click",
+					Func:		func(event vugu.DOMEvent) { c.UpdateData(event) },
+					// TODO: implement capture, etc. mostly need to decide syntax
+				})
+				{
+					vgparent := vgn
+					_ = vgparent
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "Refresh"}
+					vgparent.AppendChild(vgn)
+				}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
+				vgparent.AppendChild(vgn)
+				if len(c.List.Items) > -3 {
+					vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute(nil)}
+					vgparent.AppendChild(vgn)
+					{
+						vgparent := vgn
+						_ = vgparent
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
+						vgparent.AppendChild(vgn)
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "ol", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "list-group list-group-numbered"}}}
+						vgparent.AppendChild(vgn)
+						{
+							vgparent := vgn
+							_ = vgparent
+							vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+							vgparent.AppendChild(vgn)
+							for key, pod := range c.List.Items {
+								var vgiterkey interface{} = key
+								_ = vgiterkey
+								key := key
+								_ = key
+								pod := pod
+								_ = pod
+								vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "li", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "list-group-item d-flex justify-content-between align-items-start"}}}
+								vgparent.AppendChild(vgn)
+								{
+									vgparent := vgn
+									_ = vgparent
+									vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                        "}
+									vgparent.AppendChild(vgn)
+									vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "ms-5 me-auto"}}}
+									vgparent.AppendChild(vgn)
+									{
+										vgparent := vgn
+										_ = vgparent
+										vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                            "}
+										vgparent.AppendChild(vgn)
+										vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "div", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "fw-bold"}}}
+										vgparent.AppendChild(vgn)
+										vgn.SetInnerHTML(pod.Name)
+										vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                            "}
+										vgparent.AppendChild(vgn)
+										vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "p", Attr: []vugu.VGAttribute(nil)}
+										vgparent.AppendChild(vgn)
+										vgn.SetInnerHTML(pod.Namespace)
+										vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                    "}
+										vgparent.AppendChild(vgn)
+									}
+								}
+							}
+							vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n                "}
+							vgparent.AppendChild(vgn)
+						}
+						vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n            "}
+						vgparent.AppendChild(vgn)
+					}
+				}
+				vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n        "}
 				vgparent.AppendChild(vgn)
 			}
-		}
-		vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
-		vgparent.AppendChild(vgn)
-		vgn = &vugu.VGNode{Type: vugu.VGNodeType(3), Namespace: "", Data: "button", Attr: []vugu.VGAttribute{{Namespace: "", Key: "class", Val: "btn btn-primary"}}}
-		vgparent.AppendChild(vgn)
-		vgn.DOMEventHandlerSpecList = append(vgn.DOMEventHandlerSpecList, vugu.DOMEventHandlerSpec{
-			EventType:	"click",
-			Func:		func(event vugu.DOMEvent) { c.UpdateData(event) },
-			// TODO: implement capture, etc. mostly need to decide syntax
-		})
-		{
-			vgparent := vgn
-			_ = vgparent
-			vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "Refresh"}
+			vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n    "}
 			vgparent.AppendChild(vgn)
 		}
 		vgn = &vugu.VGNode{Type: vugu.VGNodeType(1), Data: "\n"}

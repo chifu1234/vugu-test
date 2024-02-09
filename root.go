@@ -10,14 +10,16 @@ import (
 )
 
 type Root struct {
-	List       corev1.PodList `vugu:"data"`
-	IsLoading  bool           `vugu:"data"`
-	Namespace  string         `vugu:"data"`
-	Namespaces []string       `vugu:"data"`
+	List       corev1.PodList       `vugu:"data"`
+	IsLoading  bool                 `vugu:"data"`
+	Namespace  string               `vugu:"data"`
+	Namespaces corev1.NamespaceList `vugu:"data"`
 	client     client.Client
 }
 
 func (c *Root) Init(vugu.InitCtx) {
+	var ctx = context.Background()
+
 	fmt.Println("init")
 	var err error
 	cfg := &rest.Config{
@@ -27,6 +29,9 @@ func (c *Root) Init(vugu.InitCtx) {
 	c.client, err = client.New(cfg, client.Options{})
 	if err != nil {
 		panic(fmt.Errorf("error creating client: %v", err))
+	}
+	if err := c.client.List(ctx, &c.Namespaces); err != nil {
+		panic(err)
 	}
 
 }
@@ -39,7 +44,8 @@ func (c *Root) UpdateNamesapce(event vugu.DOMEvent) {
 
 // getData
 func (c *Root) UpdateData(event vugu.DOMEvent) {
-	ctx := context.Background()
+	var ctx = context.Background()
+
 	ee := event.EventEnv()
 	go func() {
 		// Create an empty Pod object to store the result.

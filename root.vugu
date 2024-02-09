@@ -1,20 +1,33 @@
-<div class="demo">
-    <div vg-if='c.IsLoading'>Loading...</div>
-    <form>
-        <div class="mb-3">
-            <label for="namespace" class="form-label">Namespace</label>
-            <input @change="c.UpdateNamesapce(event)" id="namespace" type="text" class="form-control"></input>
+<div class="container-fluid">
+    <div class="role">
+        <div id="sidebar" class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+
         </div>
-    </form>
-    <div vg-if='len(c.List.Items) > 0'>
-        <ol class="list-group list-group-numbered">
-        <li vg-for='key, pod := range c.List.Items' vg-key='key' class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="fw-bold" vg-content='pod.Name'></div>
-                <p vg-content="pod.Namespace"></p>
-            </li>
-        </ol>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h1">Pods</h1>
+            </div>
+            <div vg-if='c.IsLoading'>Loading...</div>
+            <form>
+                <div class="mb-6" class=form-group">
+                    <label for="namespace" class="form-label">Namespace</label>
+                    <input @change="c.UpdateNamesapce(event)" list="list-ns" id="namespace" type="text" class="form-control"></input>
+                    <datalist id="list-ns">
+                        <option vg-for='_, ns := range c.Namespaces.Items' vg-content="ns.Name"></option>
+                    </datalist>
+                </div>
+            </form>
+            <button @click="c.UpdateData(event)" class="btn btn-primary">Refresh</button>
+            <div vg-if='len(c.List.Items) > -3'>
+                <ol class="list-group list-group-numbered">
+                    <li vg-for='key, pod := range c.List.Items' vg-key='key' class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-5 me-auto">
+                            <div class="fw-bold" vg-content='pod.Name'></div>
+                            <p vg-content="pod.Namespace"></p>
+                    </li>
+                </ol>
+            </div>
+        </main>
     </div>
-    <button @click="c.UpdateData(event)" class="btn btn-primary">Refresh</button>
 </div>
 
